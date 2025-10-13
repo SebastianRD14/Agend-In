@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- 🎨 Paleta principal -->
+    <color name="azul_oscuro">#0d1b2a</color>
+    <color name="azul_marino">#1b263b</color>
+    <color name="azul_medio">#415a77</color>
+    <color name="azul_claro">#778da9</color>
+    <color name="gris_suave">#e0e1dd</color>
+
+    <!-- 🎨 Fondo y texto -->
+    <color name="fondo">#E3E4E1</color>
+    <color name="texto_general">#162236</color>
 </resources>
