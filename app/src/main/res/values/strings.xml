@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Agend-In</string>
+    <string name="text_label_1">Actividades</string>
+    <string name="text_label_2">Calendario</string>
+    <string name="text_label_3">Confiuración</string>
+    <string name="titulo_tasklist">Mis Actividades 📒</string>
+    <string name="titulo_calendario">Calendario 📅</string>
+    <string name="agregar_actividad">Agregar actividad</string>
+    <string name="congifuracion">Configuración ⚙️</string>
+    <string name="activar_tema_oscuro">Activar tema oscuro</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="recordatorios_autom_ticos">Recordatorios automáticos</string>
+    <string name="nombre_actividad">Nombre Actividad</string>
+    <string name="editar">Editar</string>
+    <string name="fecha">Fecha</string>
+    <string name="yyyy_mm_dd">YYYY-MM-DD</string>
+    <string name="hora">Hora</string>
+    <string name="hh_mm">HH:mm</string>
+    <string name="fecha_actividad">Fecha de la actividad</string>
+    <string name="hora_actividad">Hora de la Actividad</string>
+    <string name="descripcion">Descripción</string>
+    <string name="agregar">Agregar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="editar_actividad">Editar Actividad</string>
+    <string name="detalles">Detalles</string>
+    <string name="eliminar">Eliminar Actividad</string>
+    <string name="importancia">Importancia</string>
+    <string name="eliminar_act">Eliminar</string>
+    <string name="detalles_actividad">Detalles Actividad</string>
+
+    <string-array name="Niveles">
+        <item>Alto</item>
+        <item>Medio</item>
+        <item>Bajo</item>
+    </string-array>
 </resources>
