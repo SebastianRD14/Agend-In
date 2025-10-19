@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {
-
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new tasklist_fragment()).commit();
         }
     }
 
@@ -65,4 +67,5 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
 }

@@ -20,12 +20,12 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="47dp"
-            android:text="@string/editar_actividad"
             android:background="@color/azul_marino"
             android:gravity="center"
+            android:text="@string/editar_actividad"
             android:textColor="@color/gris_suave"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextText"
@@ -61,6 +61,7 @@
             android:layout_height="374dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDescription"
                 android:layout_width="match_parent"
                 android:layout_height="357dp"
                 android:gravity="fill_horizontal"
@@ -86,7 +87,6 @@
                 android:layout_weight="1"
                 android:text="@string/agregar" />
         </LinearLayout>
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
