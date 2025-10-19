@@ -9,8 +9,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="412dp"
         android:layout_height="74dp"
+        android:layout_marginBottom="1dp"
         android:background="@color/azul_marino"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,6 +30,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="409dp"
         android:layout_height="656dp"
         android:layout_marginStart="1dp"
@@ -45,7 +48,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activar_tema_oscuro"/>
+            android:text="@string/activar_tema_oscuro" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
