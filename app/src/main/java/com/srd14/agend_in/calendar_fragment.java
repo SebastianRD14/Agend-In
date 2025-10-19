@@ -39,7 +39,7 @@ public class calendar_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        calendarView = view.findViewById(R.id.calendarView5);
+        calendarView = view.findViewById(R.id.calendarView);
         recyclerView = view.findViewById(R.id.recyclerProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
