@@ -63,6 +63,7 @@
             android:layout_height="374dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDescription" 
                 android:layout_width="match_parent"
                 android:layout_height="357dp"
                 android:gravity="fill_horizontal"
