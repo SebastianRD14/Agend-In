@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, new tasklist_fragment()).commit();
         }
 
+        // Mandar al usuario a habilitar las notificaciones
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -53,13 +54,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        checkAndRequestExactAlarmPermission(this);
+        // Permiso para alarmas exactas
+        permisoAlarmaExacta(this);
 
     }
 
-    public static void checkAndRequestExactAlarmPermission(Context context) {
+    // Clase para el permiso de las alarmas exactas
+    public static void permisoAlarmaExacta(Context context) {
+        // Verificamos si el permiso ya está otorgado
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Creamos un alarm manager
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            // Si no está otorgado, lo pedimos
             if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
                 Toast.makeText(context, "⚠️ Se necesita permiso para alarmas exactas.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);

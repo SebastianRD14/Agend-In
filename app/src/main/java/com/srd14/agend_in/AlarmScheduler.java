@@ -20,18 +20,21 @@ public class AlarmScheduler {
             // Convertimos la fecha y hora (String) de la tarea en un objeto Calendar
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
             Calendar calendar = Calendar.getInstance();
+            // Seteamos la fecha y hora en calendar
             calendar.setTime(sdf.parse(task.getDate() + " " + task.getTime()));
 
+            // Si la fecha y hora ya han pasado, no programamos la alarma
             long triggerTime = calendar.getTimeInMillis();
             if (triggerTime < System.currentTimeMillis()) {
                 Toast.makeText(context, "❌ La hora ya pasó, no se programó la alarma.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Intent que activará al ReminderReceiver
+            // Intent que activará al ReminderReceiver y guarda el nombre de la tarea para este
             Intent intent = new Intent(context, ReminderReceiver.class);
             intent.putExtra("taskName", task.getName());
 
+            // PendingIntent que sirve para llamar a ReminderReceiver a cierta hora incluso en segundo plano
             PendingIntent pendingIntent = PendingIntent.getBroadcast(
                     context,
                     task.getId(),
@@ -42,7 +45,7 @@ public class AlarmScheduler {
             // Programamos la alarma
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            // Permiso alarmas exactas
+            // Permiso alarmas exactas android +12
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 if (alarmManager.canScheduleExactAlarms()) {
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);

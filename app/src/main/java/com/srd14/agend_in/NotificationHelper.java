@@ -8,9 +8,12 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 public class NotificationHelper {
+    // Variable para el canal de notificaciones
     private static final String CHANNEL_ID = "task_channel";
 
+    // Método para mostrar la notificación
     public static void showNotification(Context context, String title, String message) {
+        // Obtener el servicio de notificaciones
         NotificationManager manager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
