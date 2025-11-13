@@ -1,8 +1,15 @@
 package com.srd14.agend_in;
 
+import android.app.AlarmManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +39,35 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new tasklist_fragment()).commit();
         }
+
+        // Mandar al usuario a habilitar las notificaciones
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+
+        // Permiso para alarmas exactas
+        permisoAlarmaExacta(this);
+
     }
 
+    // Clase para el permiso de las alarmas exactas
+    public static void permisoAlarmaExacta(Context context) {
+        // Verificamos si el permiso ya está otorgado
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Creamos un alarm manager
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            // Si no está otorgado, lo pedimos
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                Toast.makeText(context, "⚠️ Se necesita permiso para alarmas exactas.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        }
+    }
     private final NavigationBarView.OnItemSelectedListener navListener =
             new NavigationBarView.OnItemSelectedListener() {
                 @Override
