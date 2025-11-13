@@ -17,7 +17,7 @@ public class task_detail_fragment extends Fragment {
 
     private int taskId = -1;
     private Task currentTask; // Variable para guardar la tarea actual
-    private TextView textName, textDate, textTime, textDescription;
+    private TextView textName, textDate, textTime, textPriority, textDescription;
 
     public task_detail_fragment() {
         // Required empty public constructor
@@ -44,6 +44,7 @@ public class task_detail_fragment extends Fragment {
         textName = view.findViewById(R.id.editTextText);
         textDate = view.findViewById(R.id.editTextDate3);
         textTime = view.findViewById(R.id.editTextTime2);
+        textPriority = view.findViewById(R.id.spinner);
         textDescription = view.findViewById(R.id.textView);
 
         if (taskId != -1) {
@@ -82,6 +83,7 @@ public class task_detail_fragment extends Fragment {
                     textName.setText(currentTask.getName());
                     textDate.setText(currentTask.getDate());
                     textTime.setText(currentTask.getTime());
+                    textPriority.setText(currentTask.getPriority());
                     textDescription.setText(currentTask.getDescription());
                 });
             }

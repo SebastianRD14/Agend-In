@@ -56,7 +56,8 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:entries="@array/priority_levels" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

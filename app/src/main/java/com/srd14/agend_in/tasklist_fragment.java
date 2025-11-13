@@ -1,5 +1,6 @@
 package com.srd14.agend_in;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,8 +51,12 @@ public class tasklist_fragment extends Fragment implements TasksAdapter.OnItemCl
 
     private void loadTasks() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
+        final Context context = getContext();
+        if (context == null) {
+            return; // Evita un crash si el fragmento no está adjunto
+        }
         executor.execute(() -> {
-            taskList = AppDatabase.getDatabase(getContext()).taskDao().getAllTasks();
+            taskList = AppDatabase.getDatabase(context).taskDao().getAllTasks();
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     adapter = new TasksAdapter(taskList, this);
@@ -95,14 +100,17 @@ public class tasklist_fragment extends Fragment implements TasksAdapter.OnItemCl
         Task taskToDelete = taskList.get(position);
 
         // 2. Eliminarla de la base de datos en un hilo secundario
+        final Context context = getContext();
+        if (context == null) {
+            return;
+        }
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            AppDatabase.getDatabase(getContext()).taskDao().delete(taskToDelete);
+            AppDatabase.getDatabase(context).taskDao().delete(taskToDelete);
         });
 
         // 3. Eliminarla de la lista en la UI y notificar al adaptador
         taskList.remove(position);
         adapter.notifyItemRemoved(position);
-        adapter.notifyItemRangeChanged(position, taskList.size());
     }
 }

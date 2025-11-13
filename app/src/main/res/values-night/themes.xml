@@ -1,7 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AgendIn" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Tema oscuro -->
+        <item name="colorPrimary">@color/azul_marino</item>
+        <item name="colorPrimaryVariant">@color/azul_oscuro</item>
+        <item name="colorSecondary">@color/azul_medio</item>
+        <item name="colorSecondaryVariant">@color/azul_claro</item>
+        <item name="colorTertiary">@color/gris_suave</item>
+
+        <!-- Fondo general -->
+        <item name="android:colorBackground">@color/fondo_oscuro</item>
+
+        <!-- Color del texto -->
+        <item name="android:textColorPrimary">@color/texto_claro</item>
+        <item name="android:textColorSecondary">@color/gris_suave</item>
+
+        <!-- Fuente -->
+        <item name="android:fontFamily">@font/inter</item>
+
+        <!-- Personalización de botones, switches, etc -->
+        <item name="android:colorButtonNormal">@color/azul_medio</item>
+
     </style>
 </resources>

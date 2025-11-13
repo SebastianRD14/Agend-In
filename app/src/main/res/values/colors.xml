@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 🎨 Paleta principal -->
-    <color name="azul_oscuro">#0d1b2a</color>
-    <color name="azul_marino">#1b263b</color>
-    <color name="azul_medio">#415a77</color>
-    <color name="azul_claro">#778da9</color>
-    <color name="gris_suave">#e0e1dd</color>
+    <color name="azul_oscuro">#0D1B2A</color>
+    <color name="azul_marino">#1B263B</color>
+    <color name="azul_medio">#415A77</color>
+    <color name="azul_claro">#778DA9</color>
+    <color name="gris_suave">#E0E1DD</color>
 
     <!-- 🎨 Fondo y texto -->
-    <color name="fondo">#E3E4E1</color>
-    <color name="texto_general">#162236</color>
+    <color name="fondo">#E3E4E1</color>         <!-- Fondo claro principal -->
+    <color name="texto_general">#162236</color> <!-- Texto oscuro principal -->
+
+    <!-- Extras -->
+    <color name="fondo_oscuro">#121212</color>  <!-- Se usa solo en night -->
+    <color name="texto_claro">#FFFFFF</color>   <!-- Se usa solo en night -->
 </resources>

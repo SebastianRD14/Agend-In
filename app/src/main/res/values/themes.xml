@@ -1,17 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AgendIn" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- 🎨 Agend_In Theme -->
-        <item name="colorPrimary">@color/azul_medio</item>
-        <item name="colorPrimaryVariant">@color/azul_marino</item>
-        <item name="colorSecondary">@color/azul_oscuro</item>
-        <item name="colorSecondaryVariant">@color/azul_claro</item>
+        <!-- Tema claro -->
+        <item name="colorPrimary">@color/azul_claro</item>
+        <item name="colorPrimaryVariant">@color/azul_medio</item>
+        <item name="colorSecondary">@color/azul_marino</item>
+        <item name="colorSecondaryVariant">@color/azul_oscuro</item>
         <item name="colorTertiary">@color/gris_suave</item>
+
+        <!-- Fondo general -->
         <item name="android:colorBackground">@color/fondo</item>
-        <item name="android:textColor">@color/texto_general</item>
+
+        <!-- Color del texto -->
+        <item name="android:textColorPrimary">@color/texto_general</item>
+        <item name="android:textColorSecondary">@color/azul_medio</item>
 
         <!-- Fuente -->
-        <item name="android:fontFamily">@font/inter</item>"
+        <item name="android:fontFamily">@font/inter</item>
+
+        <!-- Personalización de botones, switches, etc -->
+        <item name="android:colorButtonNormal">@color/azul_claro</item>
     </style>
 
     <style name="Theme.AgendIn" parent="Base.Theme.AgendIn" />

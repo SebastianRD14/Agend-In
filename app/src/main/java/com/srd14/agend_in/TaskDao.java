@@ -11,7 +11,7 @@ import java.util.List;
 public interface TaskDao {
 
     @Insert
-    void insert(Task task);
+    long insert(Task task);
 
     @Update
     void update(Task task);

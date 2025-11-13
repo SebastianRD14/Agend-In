@@ -27,11 +27,13 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<CalendarTaskAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.taskName.setText(task.getName());
+        holder.taskDay.setText(task.getDate());
+        holder.taskHour.setText(task.getTime());
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return tasks != null ? tasks.size() : 0;
     }
 
     // Este método permite actualizar la lista de tareas desde el fragmento
@@ -42,10 +44,15 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<CalendarTaskAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView taskName;
+        TextView taskHour;
+
+        TextView taskDay;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             taskName = itemView.findViewById(R.id.taskNameTextView);
+            taskDay = itemView.findViewById(R.id.taskDayTextView);
+            taskHour = itemView.findViewById(R.id.taskHourTextView);
         }
     }
 }
