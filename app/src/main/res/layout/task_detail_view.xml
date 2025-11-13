@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="386dp"
+        android:layout_height="694dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -20,45 +22,45 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="47dp"
-            android:text="@string/detalles_actividad"
             android:background="@color/azul_marino"
             android:gravity="center"
+            android:text="@string/detalles_actividad"
             android:textColor="@color/gris_suave"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/editTextText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:textSize="18sp"
-            android:text="@string/nombre_actividad"/>
+            android:text="@string/nombre_actividad"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/editTextDate3"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:textSize="18sp"
-            android:text="@string/fecha_actividad"/>
+            android:text="@string/fecha_actividad"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/editTextTime2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:textSize="18sp"
-            android:text="@string/hora_actividad" />
+            android:text="@string/hora_actividad"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:textSize="18sp"
-            android:text="@string/importancia"/>
+            android:text="@string/importancia"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="423dp"
+            android:layout_height="398dp"
             android:text="@string/descripcion"
             android:textSize="18sp" />
 

@@ -100,6 +100,9 @@ public class edit_task_fragment extends Fragment {
         executor.execute(() -> {
             AppDatabase.getDatabase(getContext()).taskDao().update(currentTask);
 
+            // Reprogramar la alarma con los nuevos datos
+            AlarmScheduler.scheduleTaskAlarm(getContext(), currentTask);
+
             // Regresar a la pantalla anterior en el hilo principal
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {

@@ -1,6 +1,7 @@
 package com.srd14.agend_in;
 
 import android.app.DatePickerDialog;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,10 @@ public class add_task_fragment extends Fragment {
         editTextDate.setOnClickListener(v -> showDatePickerDialog());
         editTextDate.setFocusable(false); // Para que no se pueda escribir manualmente
 
+        // --- Mejoramos la selección de hora ---
+        editTextTime.setOnClickListener(v -> showTimePickerDialog());
+        editTextTime.setFocusable(false);
+
         Button buttonCancel = view.findViewById(R.id.button5);
         Button buttonAdd = view.findViewById(R.id.button6);
 
@@ -73,22 +78,68 @@ public class add_task_fragment extends Fragment {
         datePickerDialog.show();
     }
 
+    private void showTimePickerDialog() {
+        Calendar now = Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+
+        new android.app.TimePickerDialog(
+                getContext(),
+                (view, hourOfDay, minute1) -> {
+                    String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
+                    editTextTime.setText(timeFormatted);
+                },
+                hour,
+                minute,
+                true // true = formato de 24 horas (por ejemplo 22:11)
+        ).show();
+    }
+
     private void saveTask() {
-        // Ahora nos aseguramos de que la fecha se guarda en el formato correcto
         String name = editTextName.getText().toString().trim();
-        String date = editTextDate.getText().toString().trim(); // formato YYYY-MM-DD
+        String date = editTextDate.getText().toString().trim();
         String time = editTextTime.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
-        if (name.isEmpty() || date.isEmpty()) {
-            return;
+        // Validamos que haya por lo menos nombre y fecha
+        if (name.isEmpty() || date.isEmpty() || time.isEmpty()) {
+            return; // si falta algo, no hace nada
         }
 
+        // Creamos el objeto Task con esos datos
         Task task = new Task(name, date, time, description);
 
+        // Programamos la alarma
+        AlarmScheduler.scheduleTaskAlarm(getContext(), task);
+
+        // Guardamos la tarea en segundo plano para no congelar la app
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             AppDatabase.getDatabase(getContext()).taskDao().insert(task);
+
+            // Convertimos la fecha y hora a milisegundos para la alarma
+            try {
+                String[] dateParts = date.split("-");
+                String[] timeParts = time.split(":");
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, Integer.parseInt(dateParts[0]));
+                calendar.set(Calendar.MONTH, Integer.parseInt(dateParts[1]) - 1);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateParts[2]));
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeParts[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(timeParts[1]));
+                calendar.set(Calendar.SECOND, 0);
+
+                long triggerTime = calendar.getTimeInMillis();
+
+                // Llamamos al ReminderScheduler para programar la notificación
+                AlarmScheduler.scheduleTaskAlarm(getContext(), task);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Volvemos a la pantalla anterior después de guardar
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     getParentFragmentManager().popBackStack();
