@@ -10,6 +10,8 @@ public class ReminderReceiver extends BroadcastReceiver {
     // Este método se ejecuta cuando se programa una alarma
     public void onReceive(Context context, Intent intent) {
         String taskName = intent.getStringExtra("taskName");
-        NotificationHelper.showNotification(context, "Recordatorio de tarea", taskName);
+        String taskPriority = intent.getStringExtra("taskPriority");
+        int taskId = intent.getIntExtra("taskId", -1);
+        NotificationHelper.showNotification(context, "Recordatorio de tarea", taskName, taskPriority, taskId);
     }
 }

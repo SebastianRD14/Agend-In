@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 🎨 Paleta principal modo oscuro -->
+    <color name="azul_oscuro">#0D1B2A</color>   <!-- Azul muy oscuro -->
+    <color name="azul_marino">#1B263B</color>   <!-- Azul marino profundo -->
+    <color name="azul_medio">#415A77</color>    <!-- Azul medio uniforme -->
+    <color name="azul_claro">#778DA9</color>    <!-- Azul suave para detalles -->
+    <color name="gris_suave">#E0E1DD</color>    <!-- Gris claro para texto secundario -->
+
+    <!-- 🎨 Fondo y texto -->
+    <color name="fondo">#121212</color>         <!-- Fondo general oscuro -->
+    <color name="texto_general">#FFFFFF</color> <!-- Texto blanco principal -->
+
+    <!-- Extras -->
+    <color name="fondo_oscuro">#0B0B0B</color>  <!-- Fondo más profundo opcional -->
+    <color name="texto_claro">#FFFFFF</color>   <!-- Texto blanco uniforme -->
+</resources>

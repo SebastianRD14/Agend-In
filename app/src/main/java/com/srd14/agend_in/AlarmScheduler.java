@@ -17,45 +17,67 @@ public class AlarmScheduler {
 
     public static void scheduleTaskAlarm(Context context, Task task) {
         try {
-            // Convertimos la fecha y hora (String) de la tarea en un objeto Calendar
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-            Calendar calendar = Calendar.getInstance();
-            // Seteamos la fecha y hora en calendar
-            calendar.setTime(sdf.parse(task.getDate() + " " + task.getTime()));
+            Calendar taskCalendar = Calendar.getInstance();
+            taskCalendar.setTime(sdf.parse(task.getDate() + " " + task.getTime()));
 
-            // Si la fecha y hora ya han pasado, no programamos la alarma
-            long triggerTime = calendar.getTimeInMillis();
-            if (triggerTime < System.currentTimeMillis()) {
+            long taskTime = taskCalendar.getTimeInMillis();
+            if (taskTime < System.currentTimeMillis()) {
                 Toast.makeText(context, "❌ La hora ya pasó, no se programó la alarma.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Intent que activará al ReminderReceiver y guarda el nombre de la tarea para este
-            Intent intent = new Intent(context, ReminderReceiver.class);
-            intent.putExtra("taskName", task.getName());
-
-            // PendingIntent que sirve para llamar a ReminderReceiver a cierta hora incluso en segundo plano
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    task.getId(),
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-            );
-
-            // Programamos la alarma
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            // Permiso alarmas exactas android +12
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+
+            // Días de anticipación según prioridad
+            int[] diasAntes;
+            switch (task.getPriority()) {
+                case "Alta":
+                    diasAntes = new int[]{5, 3, 1, 0};
+                    break;
+                case "Media":
+                    diasAntes = new int[]{5, 2, 1, 0};
+                    break;
+                case "Baja":
+                    diasAntes = new int[]{7, 1, 0};
+                    break;
+                default:
+                    diasAntes = new int[]{1}; // Por si no tiene prioridad asignada
+                    break;
+            }
+
+            for (int dias : diasAntes) {
+                Calendar reminderCalendar = (Calendar) taskCalendar.clone();
+                reminderCalendar.add(Calendar.DAY_OF_MONTH, -dias);
+
+                long triggerTime = reminderCalendar.getTimeInMillis();
+                if (triggerTime < System.currentTimeMillis()) continue; // Saltar si ya pasó
+
+                Intent intent = new Intent(context, ReminderReceiver.class);
+                intent.putExtra("taskName", task.getName());
+                intent.putExtra("taskPriority", task.getPriority());
+                intent.putExtra("taskId", task.getId());
+
+                // ID único para cada recordatorio
+                int requestCode = task.getId() * 10 + dias;
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        requestCode,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                );
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                    if (alarmManager.canScheduleExactAlarms()) {
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+                    }
                 } else {
-                    Toast.makeText(context, "⚠️ No tienes permiso para alarmas exactas.", Toast.LENGTH_LONG).show();
-                    return;
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
                 }
-            } else {
-                // Versiones anteriores
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+
+                Log.d("AlarmScheduler", "⏰ Programada notificación para " + dias + " días antes de " + task.getName());
             }
 
         } catch (Exception e) {

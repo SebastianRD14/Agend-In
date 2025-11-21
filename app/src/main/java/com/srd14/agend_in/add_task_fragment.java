@@ -1,7 +1,6 @@
 package com.srd14.agend_in;
 
 import android.app.DatePickerDialog;
-
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 public class add_task_fragment extends Fragment {
 
     private EditText editTextName, editTextDate, editTextTime, editTextDescription;
+    private Spinner spinnerPriority;
     private Calendar selectedDate = Calendar.getInstance();
 
     public add_task_fragment() {
@@ -41,6 +42,7 @@ public class add_task_fragment extends Fragment {
         editTextDate = view.findViewById(R.id.editTextDate3);
         editTextTime = view.findViewById(R.id.editTextTime2);
         editTextDescription = view.findViewById(R.id.editTextDescription);
+        spinnerPriority = view.findViewById(R.id.spinner);
 
         // --- Mejoramos la selección de fecha ---
         editTextDate.setOnClickListener(v -> showDatePickerDialog());
@@ -100,6 +102,7 @@ public class add_task_fragment extends Fragment {
         String date = editTextDate.getText().toString().trim();
         String time = editTextTime.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
+        String priority = spinnerPriority.getSelectedItem().toString();
 
         // Validamos que haya por lo menos nombre y fecha
         if (name.isEmpty() || date.isEmpty() || time.isEmpty()) {
@@ -107,7 +110,7 @@ public class add_task_fragment extends Fragment {
         }
 
         // Creamos el objeto Task con esos datos
-        Task task = new Task(name, date, time, description);
+        Task task = new Task(name, date, time, description, priority);
 
         // Programamos la alarma
         AlarmScheduler.scheduleTaskAlarm(getContext(), task);
