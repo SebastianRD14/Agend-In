@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -20,17 +22,38 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
+    private LightSensorHelper sensorHelper;
+    private Boolean currentMode = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // --- Leer configuración guardada del modo oscuro ---
+
+        // --- Iniciar el sensor con callback ---
+        sensorHelper = new LightSensorHelper(this, new LightSensorHelper.LightCallBack() {
+
+            // No se usa para este sensor de luz pero se necesita agregar
+            @Override
+            public void onLightChanged(float lux) {
+            }
+            @Override
+            public void onModeChanged(boolean isDark) {
+                if (isDark) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
+
+
+        // --- Tema oscuro ---
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-        boolean darkMode = prefs.getBoolean("darkMode", false);
-        AppCompatDelegate.setDefaultNightMode(
-                darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
-        );
         setContentView(R.layout.activity_main);
+        currentMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+
+
+        // --- Navegación ---
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(navListener);
@@ -52,7 +75,18 @@ public class MainActivity extends AppCompatActivity {
         permisoAlarmaExacta(this);
 
     }
+    // Control para que el sensor solo funcione si está encendida la app
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (sensorHelper != null) sensorHelper.start();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (sensorHelper != null) sensorHelper.stop();
+    }
     // Clase para el permiso de las alarmas exactas
     public static void permisoAlarmaExacta(Context context) {
         // Verificamos si el permiso ya está otorgado
@@ -68,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
     private final NavigationBarView.OnItemSelectedListener navListener =
             new NavigationBarView.OnItemSelectedListener() {
                 @Override
