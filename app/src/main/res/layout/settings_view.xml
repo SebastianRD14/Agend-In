@@ -43,10 +43,38 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchDarkMode"
+            android:id="@+id/switchAutoMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activar_tema_oscuro" />
+            android:text="@string/sensor_automatico" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchManualMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/manual_modo"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/radioLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modo_claro" />
+
+            <RadioButton
+                android:id="@+id/radioDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modo_oscuro"
+                android:layout_marginStart="16dp"/>
+        </RadioGroup>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchNotifications"
@@ -54,11 +82,7 @@
             android:layout_height="wrap_content"
             android:text="@string/notificaciones" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchReminders"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recordatorios_autom_ticos" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

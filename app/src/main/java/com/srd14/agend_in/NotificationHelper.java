@@ -16,6 +16,7 @@ public class NotificationHelper {
 
     // Método para mostrar la notificación
     public static void showNotification(Context context, String title, String message, String priority, int taskId) {
+
         // Obtener el servicio de notificaciones
         NotificationManager manager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -79,5 +80,12 @@ public class NotificationHelper {
 
         // Mostrar la notificación
         manager.notify(taskId, builder.build());
+    }
+
+    // Metodo de cancelacion de notificaciones
+    public static void cancelNotification(Context context, int taskId) {
+        NotificationManager manager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(taskId);
     }
 }

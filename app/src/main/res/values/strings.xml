@@ -14,9 +14,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="titulo_calendario">Calendario 📅</string>
     <string name="configuracion">Configuración ⚙</string>
-    <string name="activar_tema_oscuro">Activar tema oscuro</string>
+    <string name="manual_modo">Preferencuas en modo Oscuro/Claro manual</string>
     <string name="notificaciones">Notificaciones</string>
-    <string name="recordatorios_autom_ticos">Recordatorios automáticos</string>
+    <string name="sensor_automatico">Preferencias en modo Oscuro/Claro Automatico</string>
     <string name="detalles_actividad">Detalles de la actividad</string>
     <string name="importancia">Importancia</string>
     <string name="editar">Editar</string>
@@ -34,6 +34,8 @@
     <string name="hora_calendar">Hora</string>
     <string name="dia_calendar">Dia</string>
     <string name="nombre_de_actividad">Nombre de actividad</string>
+    <string name="modo_claro">Modo Claro</string>
+    <string name="modo_oscuro">Modo Oscuro</string>
     <string-array name="priority_levels">
         <item>Alta</item>
         <item>Media</item>
