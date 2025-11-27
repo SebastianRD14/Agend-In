@@ -21,7 +21,7 @@ public class CalendarUtils {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTimeMillis)
-                // Por defecto, el evento durará 1 hora. Se puede ajustar si es necesario.
+                // Por defecto, el evento durará 1 hora. Se puede ajustar si es necesario (mas que nada por que dependiendo la configuracion del evento google pide una hora de finalizacion.
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, startTimeMillis + 60 * 60 * 1000)
                 .putExtra(CalendarContract.Events.TITLE, title)
                 .putExtra(CalendarContract.Events.DESCRIPTION, description)

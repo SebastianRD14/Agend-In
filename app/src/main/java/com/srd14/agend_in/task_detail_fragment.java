@@ -1,5 +1,6 @@
 package com.srd14.agend_in;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,18 +42,20 @@ public class task_detail_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        textName = view.findViewById(R.id.editTextText);
-        textDate = view.findViewById(R.id.editTextDate3);
-        textTime = view.findViewById(R.id.editTextTime2);
-        textPriority = view.findViewById(R.id.spinner);
-        textDescription = view.findViewById(R.id.textView);
+        // Corregimos los IDs para que coincidan con el XML
+        textName = view.findViewById(R.id.taskDetailName);
+        textDate = view.findViewById(R.id.taskDetailDate);
+        textTime = view.findViewById(R.id.taskDetailTime);
+        textPriority = view.findViewById(R.id.taskDetailPriority);
+        textDescription = view.findViewById(R.id.taskDetailDescription);
 
         if (taskId != -1) {
             loadTaskDetails();
         }
 
-        Button buttonEdit = view.findViewById(R.id.button5);
-        Button buttonDelete = view.findViewById(R.id.button6);
+        Button buttonEdit = view.findViewById(R.id.buttonEdit);
+        Button buttonDelete = view.findViewById(R.id.buttonDelete);
+        Button buttonShare = view.findViewById(R.id.buttonShare); // Obtenemos el nuevo botón
 
         buttonEdit.setOnClickListener(v -> {
             edit_task_fragment editFragment = new edit_task_fragment();
@@ -66,16 +69,35 @@ public class task_detail_fragment extends Fragment {
                     .commit();
         });
 
-        // 1. Añadir la lógica al botón de eliminar
         buttonDelete.setOnClickListener(v -> {
             deleteCurrentTask();
+        });
+
+        // --- Lógica para el botón de compartir ---
+        buttonShare.setOnClickListener(v -> {
+            if (currentTask != null) {
+                // 1. Crear el texto que se va a compartir
+                String shareText = "¡Mira esta tarea!\n\n" +
+                        "Nombre: " + currentTask.getName() + "\n" +
+                        "Fecha: " + currentTask.getDate() + "\n" +
+                        "Hora: " + currentTask.getTime() + "\n\n" +
+                        "Descripción: " + currentTask.getDescription();
+
+                // 2. Crear un Intent para compartir
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Tarea: " + currentTask.getName());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+                // 3. Mostrar el menú de compartir de Android
+                startActivity(Intent.createChooser(shareIntent, "Compartir tarea vía"));
+            }
         });
     }
 
     private void loadTaskDetails() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            // Guardamos la tarea actual en la variable de la clase
             currentTask = AppDatabase.getDatabase(getContext()).taskDao().getTaskById(taskId);
 
             if (currentTask != null && getActivity() != null) {
@@ -90,19 +112,15 @@ public class task_detail_fragment extends Fragment {
         });
     }
 
-    // 2. Nuevo método para eliminar la tarea
     private void deleteCurrentTask() {
         if (currentTask == null) {
-            // No se puede eliminar si no se ha cargado la tarea
             return;
         }
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            // Eliminar la tarea de la BD en un hilo secundario
             AppDatabase.getDatabase(getContext()).taskDao().delete(currentTask);
 
-            // Regresar a la pantalla anterior en el hilo principal
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     getParentFragmentManager().popBackStack();
