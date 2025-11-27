@@ -40,7 +40,6 @@ public class calendar_fragment extends Fragment {
     private ActivityResultLauncher<String[]> requestPermissionLauncher;
 
     public calendar_fragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -102,18 +101,14 @@ public class calendar_fragment extends Fragment {
         
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            // 1. Get app tasks
             List<Task> appTasks = AppDatabase.getDatabase(getContext()).taskDao().getTasksByDate(selectedDate);
             
-            // 2. Get calendar events
             List<CalendarEvent> calendarEvents = obtenerEventosDelCalendario(year, month, dayOfMonth);
-            
-            // 3. Combine lists
+
             List<Object> combinedList = new ArrayList<>();
             combinedList.addAll(appTasks);
             combinedList.addAll(calendarEvents);
             
-            // 4. Update adapter on UI thread
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     adapter.updateItems(combinedList);
