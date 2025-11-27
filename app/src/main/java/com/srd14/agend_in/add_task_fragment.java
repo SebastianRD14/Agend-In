@@ -44,11 +44,9 @@ public class add_task_fragment extends Fragment {
         editTextDescription = view.findViewById(R.id.editTextDescription);
         spinnerPriority = view.findViewById(R.id.spinner);
 
-        // --- Mejoramos la selección de fecha ---
         editTextDate.setOnClickListener(v -> showDatePickerDialog());
-        editTextDate.setFocusable(false); // Para que no se pueda escribir manualmente
+        editTextDate.setFocusable(false);
 
-        // --- Mejoramos la selección de hora ---
         editTextTime.setOnClickListener(v -> showTimePickerDialog());
         editTextTime.setFocusable(false);
 
@@ -69,7 +67,6 @@ public class add_task_fragment extends Fragment {
                 getContext(),
                 (dp, year, month, dayOfMonth) -> {
                     selectedDate.set(year, month, dayOfMonth);
-                    // Formateamos la fecha para mostrarla en el EditText
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     editTextDate.setText(dateFormat.format(selectedDate.getTime()));
                 },
@@ -93,7 +90,7 @@ public class add_task_fragment extends Fragment {
                 },
                 hour,
                 minute,
-                true // true = formato de 24 horas (por ejemplo 22:11)
+                true
         ).show();
     }
 
@@ -104,23 +101,18 @@ public class add_task_fragment extends Fragment {
         String description = editTextDescription.getText().toString().trim();
         String priority = spinnerPriority.getSelectedItem().toString();
 
-        // Validamos que haya por lo menos nombre y fecha
         if (name.isEmpty() || date.isEmpty() || time.isEmpty()) {
-            return; // si falta algo, no hace nada
+            return;
         }
 
-        // Creamos el objeto Task con esos datos
         Task task = new Task(name, date, time, description, priority);
 
-        // Programamos la alarma
         AlarmScheduler.scheduleTaskAlarm(getContext(), task);
 
-        // Guardamos la tarea en segundo plano para no congelar la app
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             AppDatabase.getDatabase(getContext()).taskDao().insert(task);
 
-            // Convertimos la fecha y hora a milisegundos para la alarma
             try {
                 String[] dateParts = date.split("-");
                 String[] timeParts = time.split(":");
@@ -133,16 +125,18 @@ public class add_task_fragment extends Fragment {
                 calendar.set(Calendar.MINUTE, Integer.parseInt(timeParts[1]));
                 calendar.set(Calendar.SECOND, 0);
 
-                long triggerTime = calendar.getTimeInMillis();
+                long startTimeMillis = calendar.getTimeInMillis();
 
-                // Llamamos al ReminderScheduler para programar la notificación
                 AlarmScheduler.scheduleTaskAlarm(getContext(), task);
+
+                // <<<--- AQUÍ ESTÁ LA MAGIA --- >>>
+                // Llamamos a nuestra nueva utilidad para crear el evento
+                CalendarUtils.addEventToCalendar(getContext(), name, description, startTimeMillis);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            // Volvemos a la pantalla anterior después de guardar
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     getParentFragmentManager().popBackStack();
