@@ -58,7 +58,7 @@ public class task_detail_fragment extends Fragment {
         Button buttonShare = view.findViewById(R.id.buttonShare); // Obtenemos el nuevo botón
 
         buttonEdit.setOnClickListener(v -> {
-            edit_task_fragment editFragment = new edit_task_fragment();
+            EditTaskFragment editFragment = new EditTaskFragment();
             Bundle args = new Bundle();
             args.putInt("TASK_ID", taskId);
             editFragment.setArguments(args);

@@ -17,14 +17,14 @@ import android.widget.Toast;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class edit_task_fragment extends Fragment {
+public class EditTaskFragment extends Fragment {
 
     private EditText editTextName, editTextDate, editTextTime, editTextDescription;
     private Spinner spinnerPriority;
     private int taskId = -1;
     private Task taskToSave; // Tarea que se guardará o actualizará
 
-    public edit_task_fragment() {
+    public EditTaskFragment() {
     }
 
     @Override

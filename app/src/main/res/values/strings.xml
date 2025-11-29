@@ -36,6 +36,14 @@
     <string name="nombre_de_actividad">Nombre de actividad</string>
     <string name="modo_claro">Modo Claro</string>
     <string name="modo_oscuro">Modo Oscuro</string>
+    <string name="add_image">Add Image</string>
+    <string name="add_audio">Add Audio</string>
+    <string name="añadir_imagen">Añadir Imagen</string>
+    <string name="añadir_audio">Añadir Audio</string>
+    <string name="imagen_guardada">Imagen guardada</string>
+    <string name="play_button">Boton play</string>
+    <string name="compartir">Compartir</string>
+    <string name="guardar">Guardar</string>
     <string-array name="priority_levels">
         <item>Alta</item>
         <item>Media</item>

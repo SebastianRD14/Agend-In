@@ -70,7 +70,7 @@ public class tasklist_fragment extends Fragment implements TasksAdapter.OnItemCl
     public void onEditClick(int position) {
         Task selectedTask = taskList.get(position);
         int taskId = selectedTask.getId();
-        edit_task_fragment editFragment = new edit_task_fragment();
+        EditTaskFragment editFragment = new EditTaskFragment();
         Bundle args = new Bundle();
         args.putInt("TASK_ID", taskId);
         editFragment.setArguments(args);
