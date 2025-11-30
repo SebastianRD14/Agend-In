@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="56dp"
             android:background="@color/azul_marino"
             android:gravity="center"
             android:text="@string/detalles_actividad"
@@ -33,60 +26,60 @@
         <TextView
             android:id="@+id/taskDetailName"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:text="@string/nombre_actividad"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/taskDetailDate"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
+            android:background="@drawable/textview_shape"
             android:text="@string/fecha_actividad"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/taskDetailTime"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
+            android:background="@drawable/textview_shape"
             android:text="@string/hora_actividad"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/taskDetailPriority"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
+            android:background="@drawable/textview_shape"
             android:text="@string/importancia"
             android:textSize="18sp" />
 
-        <!-- Contenedor para la imagen y el botón de audio -->
-        <FrameLayout
+        <!-- Imagen y el botón de audio -->
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            android:padding="16dp"
+            android:visibility="gone"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:visibility="gone" 
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageButton
-                android:id="@+id/audioPlayButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:visibility="gone"
-                app:srcCompat="@android:drawable/ic_media_play" />
-        </FrameLayout>
+        <ImageButton
+            android:id="@+id/audioPlayButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:layout_gravity="left"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
         <TextView
             android:id="@+id/taskDetailDescription"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/descripcion"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
+            android:padding="8dp"
+            android:background="@drawable/textview_shape"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -117,4 +110,5 @@
         </LinearLayout>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
