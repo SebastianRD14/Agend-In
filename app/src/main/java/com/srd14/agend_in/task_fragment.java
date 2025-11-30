@@ -29,7 +29,7 @@ public class task_fragment extends Fragment {
 
         buttonEdit.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new edit_task_fragment())
+                    .replace(R.id.fragment_container, new EditTaskFragment())
                     .addToBackStack(null)
                     .commit();
         });
