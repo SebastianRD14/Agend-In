@@ -5,7 +5,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Task.class}, version = 2, exportSchema = false) // Se añade exportSchema = false
+@Database(entities = {Task.class}, version = 19, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
