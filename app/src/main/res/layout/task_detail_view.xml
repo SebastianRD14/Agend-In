@@ -1,151 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:paddingTop="?attr/actionBarSize">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/azul_marino"
-        android:gravity="center"
-        android:text="@string/detalles_actividad"
-        android:textColor="@color/gris_suave"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ScrollView
-        android:id="@+id/scrollDetails"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/textView2"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="vertical"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_height="47dp"
+            android:background="@color/azul_marino"
+            android:gravity="center"
+            android:text="@string/detalles_actividad"
+            android:textColor="@color/gris_suave"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/taskDetailName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/nombre_actividad"
-                android:textSize="18sp"
-                android:padding="6dp"/>
+        <TextView
+            android:id="@+id/taskDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/nombre_actividad"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/taskDetailDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fecha_actividad"
-                android:background="@drawable/textview_shape"
-                android:textSize="18sp"
-                android:padding="6dp"/>
+        <TextView
+            android:id="@+id/taskDetailDate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/fecha_actividad"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/taskDetailTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/hora_actividad"
-                android:background="@drawable/textview_shape"
-                android:textSize="18sp"
-                android:padding="6dp"/>
+        <TextView
+            android:id="@+id/taskDetailTime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/hora_actividad"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/taskDetailPriority"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/importancia"
-                android:background="@drawable/textview_shape"
-                android:textSize="18sp"
-                android:padding="6dp"/>
+        <TextView
+            android:id="@+id/taskDetailPriority"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/importancia"
+            android:textSize="18sp" />
+
+        <!-- Contenedor para la imagen y el botón de audio -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars"
-                android:contentDescription="@string/imagen_guardada"
-                android:layout_marginTop="8dp"/>
+                android:visibility="gone" 
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <LinearLayout
-                android:id="@+id/audioContainer"
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/audioPlayButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:visibility="gone"
+                app:srcCompat="@android:drawable/ic_media_play" />
+        </FrameLayout>
 
-                <ImageButton
-                    android:id="@+id/audioPlayButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/play_button"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_play_audio" />
+        <TextView
+            android:id="@+id/taskDetailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/descripcion"
+            android:textSize="18sp" />
 
-                <SeekBar
-                    android:id="@+id/audioSeekBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/taskDetailDescription"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/buttonEdit"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/descripcion"
-                android:background="@drawable/textview_shape"
-                android:textSize="18sp"
-                android:padding="6dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_weight="1"
+                android:text="@string/editar" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:text="@string/eliminar_act" />
 
-                <Button
-                    android:id="@+id/buttonEdit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/editar"/>
-
-                <Button
-                    android:id="@+id/buttonDelete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/eliminar_act"/>
-
-                <Button
-                    android:id="@+id/buttonShare"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/compartir"/>
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/buttonShare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/compartir" />
         </LinearLayout>
 
-    </ScrollView>
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

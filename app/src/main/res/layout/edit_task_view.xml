@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:paddingTop="?attr/actionBarSize">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
@@ -27,121 +24,122 @@
             android:text="@string/editar_actividad"
             android:textColor="@color/gris_suave"
             android:textSize="24sp"
-            android:textStyle="bold"/>
-
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/nombre_actividad"
-            android:inputType="text"/>
-
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextDate3"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/fecha_actividad"
-            android:inputType="date"/>
-
+            android:inputType="date" />
 
         <EditText
             android:id="@+id/editTextTime2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/hora_actividad"
-            android:inputType="time"/>
-
+            android:inputType="time" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:entries="@array/priority_levels"/>
+            android:entries="@array/priority_levels" />
 
+        <!-- Textos para los botones de imagen y audio -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"/>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="@string/añadir_imagen"/>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="@string/añadir_audio"/>
-        </LinearLayout>
-
+        <!-- Botones para imagen y audio -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:adjustViewBounds="true"
                 android:contentDescription="@string/add_image"
-                app:srcCompat="@drawable/ic_add_image"/>
+                android:scaleType="centerInside"
+                app:srcCompat="@android:drawable/ic_menu_gallery"
+                tools:srcCompat="@drawable/ic_add_image" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:adjustViewBounds="true"
                 android:contentDescription="@string/add_audio"
-                app:srcCompat="@drawable/ic_add_audio"/>
+                android:scaleType="centerInside"
+                app:srcCompat="@android:drawable/ic_btn_speak_now"
+                tools:srcCompat="@drawable/ic_add_audio" />
         </LinearLayout>
 
-
-        <com.google.android.material.textfield.TextInputLayout
+        <ImageView
+            android:id="@+id/imageViewPreview"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:hint="@string/descripcion">
+            android:layout_height="100dp"
+            android:visibility="gone"
+            android:scaleType="centerCrop" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="top"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:id="@+id/audioControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone">
 
+            <ImageButton
+                android:id="@+id/buttonPlay"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:src="@android:drawable/ic_media_play"/>
+
+            <ImageButton
+                android:id="@+id/buttonStop"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_stop" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:hint="@string/descripcion" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <Button
                 android:id="@+id/button5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cancelar"/>
-
+                android:text="@string/cancelar" />
             <Button
                 android:id="@+id/button6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/guardar"/>
+                android:text="@string/guardar" />
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
