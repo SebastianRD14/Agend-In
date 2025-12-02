@@ -44,6 +44,8 @@
     <string name="play_button">Boton play</string>
     <string name="compartir">Compartir</string>
     <string name="guardar">Guardar</string>
+    <string name="cambiar_imagen">Cambiar Imagen</string>
+    <string name="cambiar_audio">Cambiar Audio</string>
     <string-array name="priority_levels">
         <item>Alta</item>
         <item>Media</item>
